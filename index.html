@@ -4,62 +4,471 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mora Property Services</title>
-  <meta name="description" content="Residential property services in Port St. Lucie and surrounding areas. Window cleaning, gutters, pressure washing, junk removal, and more." />
+  <meta name="description" content="Residential property services in Port St. Lucie and surrounding areas. Window cleaning, gutter cleaning, pressure washing, junk removal, and more." />
+
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; color: #111; }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 28px 18px; }
-    .hero { padding: 34px 0 10px; }
-    h1 { font-size: 38px; margin: 0 0 10px; }
-    p { line-height: 1.5; margin: 10px 0; }
-    .cta { display: inline-block; margin-top: 14px; padding: 12px 16px; border-radius: 10px; text-decoration: none; border: 1px solid #111; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 22px 0; }
-    .card { border: 1px solid #ddd; border-radius: 14px; padding: 14px; }
-    .muted { color: #555; }
-    .bar { border-top: 1px solid #eee; margin: 26px 0; }
-    .phone a { color: inherit; }
-    iframe { width: 100%; border: 0; min-height: 820px; }
-    .small { font-size: 14px; }
+    :root{
+      --bg0:#070a12;
+      --bg1:#0b1220;
+      --white:#ffffff;
+      --muted:rgba(255,255,255,.78);
+      --muted2:rgba(255,255,255,.64);
+
+      --glass:rgba(255,255,255,.10);
+      --glass2:rgba(255,255,255,.07);
+      --border:rgba(255,255,255,.18);
+
+      --accentA:#22c55e; /* green */
+      --accentB:#38bdf8; /* sky */
+      --accentC:#a78bfa; /* purple */
+
+      --shadow: 0 18px 45px rgba(0,0,0,.28);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 700px at 10% 10%, #0f1b3c 0%, var(--bg0) 40%, #050611 100%);
+      color: var(--white);
+    }
+    a{ color:inherit; }
+
+    /* Top bar */
+    .top{
+      position: sticky;
+      top:0;
+      z-index: 20;
+      background: rgba(5,6,17,.65);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .top-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .brand{
+      text-decoration:none;
+      display:flex;
+      flex-direction:column;
+      line-height: 1.05;
+    }
+    .brand strong{ font-size: 16px; letter-spacing:.2px; }
+    .brand span{ font-size: 12px; color: rgba(255,255,255,.72); margin-top: 2px; }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.16);
+      text-decoration:none;
+      font-size: 14px;
+      color: rgba(255,255,255,.92);
+      white-space: nowrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 11px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      font-weight: 800;
+      color:#06121f;
+      background: linear-gradient(135deg, var(--accentA), var(--accentB));
+      border: 0;
+      box-shadow: 0 10px 22px rgba(34,197,94,.18);
+      white-space: nowrap;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{ filter: brightness(1.02); transform: translateY(-1px); }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      padding: 58px 18px 44px;
+      min-height: 70vh;
+      display:flex;
+      align-items:center;
+      background:
+        linear-gradient(180deg, rgba(5,6,17,.70), rgba(5,6,17,.88)),
+        url("assets/hero.jpg") center/cover no-repeat;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .hero-inner{
+      max-width: var(--max);
+      margin:0 auto;
+      width:100%;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items: center;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(34px, 4.2vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.6px;
+    }
+    .lead{
+      margin: 10px 0 0;
+      color: rgba(255,255,255,.86);
+      line-height: 1.6;
+      font-size: 16.5px;
+      max-width: 62ch;
+    }
+
+    /* Service chips */
+    .chips{
+      margin-top: 16px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.92);
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 10px 20px rgba(0,0,0,.18);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.35);
+    }
+    .chip span.icon{
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: 14px;
+    }
+
+    /* Right-side hero card */
+    .hero-card{
+      border-radius: 22px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .hero-card h3{ margin:0 0 8px; font-size: 18px; }
+    .hero-card p{ margin:0 0 12px; color: rgba(255,255,255,.82); line-height:1.55; }
+    .hero-card ul{ margin:0; padding-left: 18px; color: rgba(255,255,255,.86); line-height: 1.7; font-size: 14px; }
+
+    .hero-cta{
+      margin-top: 18px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+    }
+    .secondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 11px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      font-weight: 800;
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      transition: background .12s ease;
+    }
+    .secondary:hover{ background: rgba(255,255,255,.12); }
+
+    /* Sections */
+    .section{
+      padding: 46px 18px;
+      background: linear-gradient(180deg, rgba(7,10,18,1), rgba(11,18,32,1));
+    }
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .title h2{
+      margin:0;
+      font-size: 26px;
+      letter-spacing: -0.2px;
+    }
+    .title p{
+      margin: 8px 0 0;
+      color: var(--muted2);
+      line-height: 1.65;
+      max-width: 90ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .card{
+      border-radius: var(--radius);
+      background: var(--glass2);
+      border: 1px solid rgba(255,255,255,.14);
+      padding: 16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      position: relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(600px 220px at 10% 10%, rgba(56,189,248,.18), rgba(167,139,250,.10), transparent 55%);
+      pointer-events:none;
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .card p{
+      margin: 0;
+      color: rgba(255,255,255,.78);
+      line-height: 1.6;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .card .tag{
+      margin-top: 12px;
+      display:inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.86);
+      font-size: 12px;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .panel{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 16px;
+    }
+    .panel h3{ margin:0 0 10px; font-size: 16px; }
+    .panel p, .panel li{ color: rgba(255,255,255,.78); line-height:1.65; }
+    .panel ul{ margin:0; padding-left: 18px; }
+
+    /* Form */
+    .form-wrap{
+      margin-top: 16px;
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.05);
+    }
+
+    /* Make the embedded form look “native” */
+    .form-iframe{
+      width:100%;
+      border:0;
+      height: 980px;              /* adjust if needed */
+      max-height: none;           /* keep it tall */
+      display:block;
+      background: transparent;
+    }
+
+    footer{
+      padding: 26px 18px 36px;
+      background: #050611;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.70);
+      text-align:center;
+    }
+
+    @media (max-width: 900px){
+      .hero-inner{ grid-template-columns: 1fr; }
+      .two-col{ grid-template-columns: 1fr; }
+      .actions .pill{ display:none; }
+      .form-iframe{ height: 1100px; }
+    }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <h1>Mora Property Services</h1>
-      <p class="muted">Residential services. Clean work, clear communication, fair pricing.</p>
-      <p class="phone"><strong>Call or text:</strong> <a href="tel:17723704570">772-370-4570</a></p>
-      <a class="cta" href="#quote">Request a Free Quote</a>
+  <header class="top">
+    <div class="top-inner">
+      <a class="brand" href="#top">
+        <strong>Mora Property Services</strong>
+        <span>Residential property care, Port St. Lucie and nearby areas</span>
+      </a>
+      <div class="actions">
+        <a class="pill" href="tel:17723704570">Call or text: 772-370-4570</a>
+        <a class="btn" href="#quote">Request a Free Quote</a>
+      </div>
     </div>
+  </header>
 
-    <div class="bar"></div>
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>Residential property services that look “done right.”</h1>
+          <p class="lead">
+            Windows, gutters, pressure washing, yard cleanups, and junk removal, delivered with clean work,
+            clear communication, and fair pricing.
+          </p>
 
-    <h2>Services</h2>
-    <div class="grid">
-      <div class="card"><strong>Window Cleaning</strong><p class="small muted">Interior or exterior, screens on request.</p></div>
-      <div class="card"><strong>Gutter Cleaning</strong><p class="small muted">Debris removal, downspout check.</p></div>
-      <div class="card"><strong>Pressure Washing</strong><p class="small muted">Driveways, patios, sidewalks, fences.</p></div>
-      <div class="card"><strong>Junk Removal</strong><p class="small muted">Bulk pickup, backyard cleanouts.</p></div>
-      <div class="card"><strong>Yard Cleanup</strong><p class="small muted">General cleanup, haul away options.</p></div>
-      <div class="card"><strong>House Cleaning</strong><p class="small muted">Coming soon, request availability.</p></div>
-    </div>
+          <div class="chips">
+            <div class="chip"><span class="icon">🪟</span>Window Cleaning</div>
+            <div class="chip"><span class="icon">🌧️</span>Gutter Cleaning</div>
+            <div class="chip"><span class="icon">💦</span>Pressure Washing</div>
+            <div class="chip"><span class="icon">🗑️</span>Junk Removal</div>
+            <div class="chip"><span class="icon">🌿</span>Yard Cleanup</div>
+            <div class="chip"><span class="icon">🧼</span>House Cleaning (Soon)</div>
+          </div>
 
-    <h2>Service Area</h2>
-    <p class="muted">Port St. Lucie and nearby areas. If you are unsure, request a quote and we will confirm.</p>
+          <div class="hero-cta">
+            <a class="btn" href="#quote">Get a Free Quote</a>
+            <a class="secondary" href="tel:17723704570">Call or Text Now</a>
+          </div>
+        </div>
 
-    <div class="bar"></div>
+        <aside class="hero-card">
+          <h3>Fast quotes, simple process</h3>
+          <p>Send a request in under 2 minutes. We’ll follow up quickly.</p>
+          <ul>
+            <li>Residential only (for now)</li>
+            <li>Clear scheduling and follow-through</li>
+            <li>Photos welcome for accuracy</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
 
-    <h2 id="quote">Request a Free Quote</h2>
-    <p class="muted">Fill out the form below. We will reply as quickly as possible.</p>
+    <section class="section">
+      <div class="container">
+        <div class="title">
+          <h2>Services</h2>
+          <p>Pick what you need. If you’re not sure, choose “Other” in the form and tell us what you want done.</p>
+        </div>
 
-    <!-- Paste your Microsoft Forms embed iframe below -->
-    PASTE_YOUR_MICROSOFT_FORMS_IFRAME_HERE
+        <div class="grid">
+          <div class="card">
+            <h3>Window Cleaning</h3>
+            <p>Interior or exterior, screens on request, detail-focused finish.</p>
+            <div class="tag">Clear views</div>
+          </div>
+          <div class="card">
+            <h3>Gutter Cleaning</h3>
+            <p>Debris removal, downspouts checked, cleanup included.</p>
+            <div class="tag">Prevent overflow</div>
+          </div>
+          <div class="card">
+            <h3>Pressure Washing</h3>
+            <p>Driveways, patios, sidewalks, fences, and more.</p>
+            <div class="tag">Instant curb appeal</div>
+          </div>
+          <div class="card">
+            <h3>Junk Removal</h3>
+            <p>Bulk pickup, backyard cleanouts, haul-away options.</p>
+            <div class="tag">Clutter gone</div>
+          </div>
+          <div class="card">
+            <h3>Yard Cleanup</h3>
+            <p>General cleanup, light hauling, curb-ready presentation.</p>
+            <div class="tag">Clean and tidy</div>
+          </div>
+          <div class="card">
+            <h3>House Cleaning</h3>
+            <p>Coming soon. Request availability and we’ll confirm.</p>
+            <div class="tag">By request</div>
+          </div>
+        </div>
 
-    <div class="bar"></div>
+        <div class="two-col">
+          <div class="panel">
+            <h3>Service Area</h3>
+            <p>Port St. Lucie and surrounding areas. If you’re outside the area, request a quote and we’ll confirm.</p>
+          </div>
+          <div class="panel">
+            <h3>What you can expect</h3>
+            <ul>
+              <li>Professional communication and follow-up</li>
+              <li>Clean work with attention to detail</li>
+              <li>Simple scheduling and clear next steps</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <p class="small muted">© <span id="y"></span> Mora Property Services</p>
-  </div>
+    <section class="section" id="quote">
+      <div class="container">
+        <div class="title">
+          <h2>Request a Free Quote</h2>
+          <p>Fill out the form below. We’ll reply as soon as possible.</p>
+        </div>
+
+        <div class="form-wrap">
+          <iframe
+            class="form-iframe"
+            src="https://forms.office.com/Pages/ResponsePage.aspx?id=AOfsgHzes0W8Sg9jmtKMLX0h6n39cCBJuP978TbcIiZUN0k5QkVYNTE0NlJURUtSVldFUjUwNlRENy4u&embed=true"
+            frameborder="0"
+            marginwidth="0"
+            marginheight="0"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            msallowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="y"></span> Mora Property Services</div>
+  </footer>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
+
